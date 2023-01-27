@@ -3,29 +3,36 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TokenResolverService } from './resolver/token-resolver.service';
-
+import { LoginComponent } from "./login/login.component";
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: "",
+    redirectTo: "home",
+    pathMatch: "full",
   },
   {
-    path: 'callback',
-    redirectTo: 'dashboard',
+    path: "callback",
+    redirectTo: "dashboard",
   },
   {
-    path: 'home',
-    component: HomeComponent
+    path: "home",
+    component: HomeComponent,
   },
   {
-    path: 'dashboard',
+    path: "dashboard",
     component: DashboardComponent,
     resolve: {
-      access: TokenResolverService
-    }
-  }
+      access: TokenResolverService,
+    },
+  },
+  {
+    path: "login",
+    component: LoginComponent,
+    resolve: {
+      access: TokenResolverService,
+    },
+  },
 ];
 
 @NgModule({

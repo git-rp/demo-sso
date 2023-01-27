@@ -15,16 +15,16 @@ export class DashboardComponent implements OnInit {
   constructor(private awsCognitoService: AwsCognitoService) { }
 
   ngOnInit(): void {
-    console.log('Token: ', localStorage.getItem('token'));
-
-    this.token = localStorage.getItem('token');
+    console.log("Token: ", localStorage.getItem("idtoken"));
+    // alert("display");
+    this.token = localStorage.getItem("idtoken");
 
     if (this.token) {
-      const base64Url = this.token.split('.')[1];
-      const base64 = base64Url.replace('-', '+').replace('_', '/');
+      const base64Url = this.token.split(".")[1];
+      const base64 = base64Url.replace("-", "+").replace("_", "/");
       this.tokenDetails = JSON.parse(atob(base64));
 
-      console.log(this.tokenDetails);
+      console.log(this.tokenDetails.zoneinfo);
     }
   }
 

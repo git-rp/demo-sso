@@ -12,23 +12,28 @@ export class AwsCognitoService {
 
   public getTokenDetailsFromCognito(callbackCode: string): Observable<any> {
     const details = {
-      grant_type: 'authorization_code',
+      grant_type: "authorization_code",
       code: callbackCode,
-      scope: 'openid+profile',
-      redirect_uri: environment.redirectURL
+      scope: "openid+profile",
+      redirect_uri: environment.redirectURL,
     };
     const formBody = Object.keys(details)
-                           .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(details[key])}`)
-                           .join('&');
-
-    return this.http.post<any>(environment.cognitoTokenURL,
-      formBody, {
-        responseType: 'json',
-        headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: 'Basic ' + btoa(`${environment.sso_api_username}:${environment.sso_api_pwd}`)
-          })
-        });
+      .map(
+        (key) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(details[key])}`
+      )
+      .join("&");
+    //alert("from body: " + formBody);
+    //alert("client sso " + environment.sso_api_username);
+    return this.http.post<any>(environment.cognitoTokenURL, formBody, {
+      responseType: "json",
+      headers: new HttpHeaders({
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic " +
+          btoa(`${environment.sso_api_username}:${environment.sso_api_pwd}`),
+      }),
+    });
   }
 
   public logoutUserFromCognito(): Observable<any> {
